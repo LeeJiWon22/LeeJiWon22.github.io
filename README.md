@@ -4,7 +4,7 @@
 =============
 <body>
 <a href="https://leejiwon22.github.io/Homework2-1.html">Homework2-1<br>
-<a href="https://LeeJiWon22.github.io/Homework2-2.html">Homework2-2
-<a href="http://www.naver.com">1
-<a href="smile.gif">2
+<a href="https://LeeJiWon22.github.io/Homework2-2.html">Homework2-2<br>
+<a href="http://www.naver.com">Homework2-3<br>
+<a href="smile.gif">Homework2-4<br>
 </body>
