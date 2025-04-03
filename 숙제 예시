@@ -1,0 +1,21 @@
+1번 문제
+<?php
+$n = 30;
+$sum = 0;
+$prod = 1;
+for($a=1; $a<$n; $a++)
+{
+    $sum += $a;
+    echo("$a + ");
+}
+$sum += $n;
+echo("$n = $sum\n");
+for($a=1; $a<$n; $a++)
+{
+    $prod *= $a;
+    echo("$a * ");
+}
+$prod *= $n;
+echo("$n = $prod");
+?>
+2번문제
