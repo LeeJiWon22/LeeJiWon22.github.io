@@ -18,4 +18,3 @@ for($a=1; $a<$n; $a++)
 $prod *= $n;
 echo("$n = $prod");
 ?>
-2번문제
