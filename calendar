@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP 달력 만들기</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .saturday {
+            color: blue; /* 토요일 파란색으로 표시 */
+        }
+        .sunday, .holiday {
+            color: red; /* 일요일과 공휴일 빨간색으로 표시 */
+        }
+        .navigation {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<?php
+// create_calendar() 함수 정의
+function create_calendar($month, $year) {
+    // 현재 달의 첫째 날과 마지막 날을 구합니다.
+    $first_day = mktime(0, 0, 0, $month, 1, $year);
+    $last_day = mktime(0, 0, 0, $month + 1, 0, $year);
+
+    // 첫째 날의 요일과 현재 달의 총 일수를 구합니다.
+    $start_day_of_week = date('w', $first_day);
+    $days_in_month = date('t', $first_day);
+
+    // 달력의 헤더를 출력합니다.
+    echo "<h2>" . date('F', $first_day) . " " . $year . "</h2>";
+	// 달력의 이전 달과 다음 달로 이동하는 링크를 출력합니다.
+	echo "<a href='?month=" . ($month - 1) . "&year=$year'>이전 달</a> | ";
+    echo "<a href='?month=" . ($month + 1) . "&year=$year'>다음 달</a>";
+	echo "<br><br>";
+    echo "<table>";
+    echo "<tr><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>";
+
+    // 공휴일 목록
+    $holidays = array("2024-01-01", "2024-03-01"); // 예시로 공휴일을 추가합니다.
+
+    // 달력의 각 날짜를 출력합니다.
+    echo "<tr>";
+    for ($i = 0; $i < $start_day_of_week; $i++) {
+        echo "<td></td>";
+    }
+    for ($day = 1; $day <= $days_in_month; $day++) {
+        $current_date = date("Y-m-d", mktime(0, 0, 0, $month, $day, $year));
+        $day_of_week = date("w", mktime(0, 0, 0, $month, $day, $year));
+        
+        // 토요일은 파란색, 일요일과 공휴일은 빨간색으로 표시
+        if ($day_of_week == 6) {
+            echo "<td class='saturday'>$day</td>";
+        } elseif ($day_of_week == 0 || in_array($current_date, $holidays)) {
+            echo "<td class='holiday'>$day</td>";
+        } else {
+            echo "<td>$day</td>";
+        }
+        if (($day + $start_day_of_week) % 7 == 0) {
+            echo "</tr><tr>";
+        }
+    }
+    echo "</tr>";
+    echo "</table>";
+}
+
+// 월과 년도 파라미터 설정
+$month = isset($_GET['month']) ? $_GET['month'] : date('m');
+$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
+?>
+
+<?php
+// create_calendar() 함수 호출
+create_calendar($month, $year);
+?>
+
+</body>
+</html>
