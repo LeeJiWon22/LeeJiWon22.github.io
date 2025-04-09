@@ -1,0 +1,33 @@
+<?php
+function triangle_area($w, $h) {
+    return $w * $h / 2;
+}
+
+function rectangle_area($w, $h) {
+    return $w * $h;
+}
+
+function circle_area($r) {
+    return pi() * $r * $r;
+}
+
+function box_volume($w, $l, $h) {
+    return $w * $l * $h;
+}
+
+function cylinder_volume($r, $h) {
+    return pi() * $r * $r * $h;
+}
+
+function sphere_volume($r) {
+    return (4/3) * pi() * pow($r, 3);
+}
+
+// 예시 출력
+echo "삼각형 면적: " . triangle_area(10, 5) . "<br>";
+echo "직사각형 면적: " . rectangle_area(10, 5) . "<br>";
+echo "원의 면적: " . circle_area(5) . "<br>";
+echo "직육면체 부피: " . box_volume(10, 5, 3) . "<br>";
+echo "원통 부피: " . cylinder_volume(5, 10) . "<br>";
+echo "구 부피: " . sphere_volume(5) . "<br>";
+?>
