@@ -9,8 +9,8 @@
 <a href="https://LeeJiWon22.github.io/Homework2-4.html">Homework2-4<br>
 <a href="https://leejiwon22.github.io/CSS%20demo.html">CSS demo<br>
 
-<a href="https://LeeJiWon22.github.io/homework3-1.html">Homework3-1<br>
-<a href="https://LeeJiWon22.github.io/homework3-2.html">Homework3-2<br>
-<a href="https://LeeJiWon22.github.io/homework3-3.html">Homework3-3<br>
-<a href="https://LeeJiWon22.github.io/homework3-4.html">Homework3-4<br>
-<a href="https://LeeJiWon22.github.io/homework3-5.html">Homework3-5<br>
+<a href="https://LeeJiWon22.github.io/homework3-1.jpg">Homework3-1<br>
+<a href="https://LeeJiWon22.github.io/homework3-2.jpg">Homework3-2<br>
+<a href="https://LeeJiWon22.github.io/homework3-3.jpg">Homework3-3<br>
+<a href="https://LeeJiWon22.github.io/homework3-4.jpg">Homework3-4<br>
+<a href="https://LeeJiWon22.github.io/homework3-5.jpg">Homework3-5<br>
