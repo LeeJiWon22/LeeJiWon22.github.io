@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>도형 계산기</title>
+</head>
+<body>
+    <h2>도형 계산기</h2>
+    <form method="post">
+        <label>도형 선택:</label>
+        <select name="shape">
+            <option value="triangle">삼각형</option>
+            <option value="rectangle">직사각형</option>
+            <option value="circle">원</option>
+            <option value="box">직육면체</option>
+            <option value="cylinder">원통</option>
+            <option value="sphere">구</option>
+        </select><br><br>
+
+        <label>가로/반지름:</label>
+        <input type="number" name="width" step="any"><br><br>
+
+        <label>세로:</label>
+        <input type="number" name="length" step="any"><br><br>
+
+        <label>높이:</label>
+        <input type="number" name="height" step="any"><br><br>
+
+        <input type="submit" value="계산">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $shape = $_POST['shape'];
+        $width = $_POST['width'];
+        $length = $_POST['length'];
+        $height = $_POST['height'];
+        $result = 0;
+
+        switch ($shape) {
+            case 'triangle':
+                $result = ($width * $height) / 2;
+                echo "삼각형의 면적: $result";
+                break;
+            case 'rectangle':
+                $result = $width * $length;
+                echo "직사각형의 면적: $result";
+                break;
+            case 'circle':
+                $result = pi() * pow($width, 2);
+                echo "원의 면적: $result";
+                break;
+            case 'box':
+                $result = $width * $length * $height;
+                echo "직육면체의 체적: $result";
+                break;
+            case 'cylinder':
+                $result = pi() * pow($width, 2) * $height;
+                echo "원통의 체적: $result";
+                break;
+            case 'sphere':
+                $result = (4/3) * pi() * pow($width, 3);
+                echo "구의 체적: $result";
+                break;
+            default:
+                echo "올바른 도형을 선택하세요.";
+        }
+    }
+    ?>
+</body>
+</html>
