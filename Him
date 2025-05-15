@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>티켓 예매</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <h2>고객성명 <input type="text" name="customer_name"></h2>
+
+    <form method="post">
+        <table>
+            <tr>
+                <th>No</th>
+                <th>구분</th>
+                <th>어린이</th>
+                <th>수량</th>
+                <th>어른</th>
+                <th>수량</th>
+            </tr>
+            <?php
+            $items = [
+                ["입장권", 7000, 10000],
+                ["BIG3", 12000, 18000],
+                ["자유이용권", 21000, 28000],
+                ["연간이용권", 70000, 90000]
+            ];
+            for ($i = 0; $i < count($items); $i++) {
+                echo "<tr>";
+                echo "<td>" . ($i + 1) . "</td>";
+                echo "<td>" . $items[$i][0] . "</td>";
+                echo "<td>" . number_format($items[$i][1]) . "원</td>";
+                echo "<td><input type='number' name='child[$i]' min='0' value='0'></td>";
+                echo "<td>" . number_format($items[$i][2]) . "원</td>";
+                echo "<td><input type='number' name='adult[$i]' min='0' value='0'></td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
+        <br>
+        <input type="submit" value="계산하기">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $total = 0;
+        $child = $_POST['child'];
+        $adult = $_POST['adult'];
+
+        echo "<p>영수증:</p>";
+        for ($i = 0; $i < count($items); $i++) {
+            $cQty = (int)$child[$i];
+            $aQty = (int)$adult[$i];
+            $cTotal = $cQty * $items[$i][1];
+            $aTotal = $aQty * $items[$i][2];
+            if ($cQty > 0 || $aQty > 0) {
+                echo "<p>{$items[$i][0]} - 어린이 {$cQty}매, 어른 {$aQty}매</p>";
+            }
+            $total += $cTotal + $aTotal;
+        }
+        echo "<p>합계: " . number_format($total) . "원입니다.</p>";
+        echo "<p>" . date("Y년 m월 d일 A h:i") . "</p>";
+    }
+    ?>
+</body>
+</html>
