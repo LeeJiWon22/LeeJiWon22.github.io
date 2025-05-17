@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>티켓 계산기</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<?php
+$prices = [
+    ['입장권', 7000, 18000, '입장'],
+    ['BIG3', 12000, 21000, '입장+놀이3종'],
+    ['자유이용권', 21000, 26000, '입장+놀이자유'],
+    ['연간이용권', 70000, 90000, '입장+놀이자유']
+];
+
+$total = 0;
+$summary = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $child_counts = isset($_POST['child']) ? $_POST['child'] : [];
+    $adult_counts = isset($_POST['adult']) ? $_POST['adult'] : [];
+
+    $summary .= date("Y년 n월 j일 A g:i") . "<br>";
+    $summary .= htmlspecialchars($name) . " 고객님 감사합니다.<br>";
+
+    for ($i = 0; $i < count($prices); $i++) {
+        $child_qty = isset($child_counts[$i]) ? intval($child_counts[$i]) : 0;
+        $adult_qty = isset($adult_counts[$i]) ? intval($adult_counts[$i]) : 0;
+
+        if ($child_qty > 0) {
+            $summary .= "어린이 {$prices[$i][0]} {$child_qty}매<br>";
+        }
+        if ($adult_qty > 0) {
+            $summary .= "어른 {$prices[$i][0]} {$adult_qty}매<br>";
+        }
+
+        $total += $child_qty * $prices[$i][1] + $adult_qty * $prices[$i][2];
+    }
+
+    $summary .= "합계 " . number_format($total) . "원입니다.";
+}
+?>
+<form method="post">
+    고객성명 <input type="text" name="name">
+    <input type="submit" value="합계"><br><br>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>구분</th>
+            <th>어린이</th>
+            <th>어른</th>
+            <th>비고</th>
+        </tr>
+        <?php for ($i = 0; $i < count($prices); $i++): ?>
+        <tr>
+            <td><?= $i + 1 ?></td>
+            <td><?= $prices[$i][0] ?></td>
+            <td>
+                <?= number_format($prices[$i][1]) ?>원
+                <select name="child[]">
+                    <?php for ($j = 0; $j <= 5; $j++): ?>
+                        <option value="<?= $j ?>"><?= $j ?></option>
+                    <?php endfor; ?>
+                </select>
+            </td>
+            <td>
+                <?= number_format($prices[$i][2]) ?>원
+                <select name="adult[]">
+                    <?php for ($j = 0; $j <= 5; $j++): ?>
+                        <option value="<?= $j ?>"><?= $j ?></option>
+                    <?php endfor; ?>
+                </select>
+            </td>
+            <td><?= $prices[$i][3] ?></td>
+        </tr>
+        <?php endfor; ?>
+    </table>
+</form>
+
+<?php if (!empty($summary)): ?>
+    <p><?= nl2br($summary) ?></p>
+<?php endif; ?>
+</body>
+</html>
